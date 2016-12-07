@@ -40,6 +40,11 @@ Source: CRAN
 Version: 0.1
 Hash: 0afb92b59b02593c70ff8046700ba9d3
 
+Package: cluster
+Source: CRAN
+Version: 2.0.5
+Hash: 80ca2d4d18a212e4dbefbfc39f079121
+
 Package: colorspace
 Source: CRAN
 Version: 1.2-7
