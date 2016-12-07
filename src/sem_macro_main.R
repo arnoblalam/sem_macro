@@ -15,6 +15,8 @@ library(zoo)
 library(forecast)
 library(urca)
 
+source("src/helper.R")
+
 fwd_points <- read.zoo(as.data.frame(remove_last_row(read_excel("data/Forward rates.xlsx", 
                         col_types = c("date", "numeric"), 
                         skip = 5))))
