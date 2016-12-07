@@ -52,9 +52,14 @@ deutsche_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/d
                                                   col_types = c("date", "numeric"), 
                                                   skip = 5))))
 
-ted_spread <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/TEDRATE.xls", 
-                                                             col_types = c("date", "numeric"), 
-                                                             skip = 10))))
+ted_spread <- read.zoo(read.xlsx2("data/TEDRATE.xls", 
+          sheetIndex = 1, 
+          startRow = 11, 
+          colClasses = c("Date", "numeric")))
+
+ted_spread <- ted_spread[ted_spread != 0]
+
+ted_spread <- ted_spread/100
 
 
 eur_libor <- eur_libor/100
