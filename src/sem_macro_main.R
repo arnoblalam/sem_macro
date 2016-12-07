@@ -98,16 +98,7 @@ legend("topright",
        col = c("red", "blue"),
        lty = c(1, 1))
 
-# plot(window(swap_implied_rates*100, end="2008-01-01"))
-# plot(window(forward_rates/spot_rates, end="2008-01-01"))
-# plot(window(fwd_points, end="2008-01-01")) 
-# 
-# plot(window(usd_libor*100, start="2007-07-01", end="2008-02-01"), ylim=c(2.8, 5.8))
-# plot(window(eur_libor*100, start="2007-07-01", end="2008-02-01"), ylim=c(3, 5))
-# 
-# plot(window(swap_implied_rates, start="2007-01-01", end="2008-01-01"),
-#      plot.type = "single",
-#      col = c("red", "blue"))
-# 
-# 
-# 
+eur_cds <- (rabobank_cds + deutsche_cds)/2
+us_cds <- (jpm_cds + cinc_cds + bofa_cds)/3
+
+cds_libor <- us_cds - eur_cds
