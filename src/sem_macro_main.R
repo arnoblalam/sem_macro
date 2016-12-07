@@ -42,7 +42,8 @@ exchange_rate_data$swap_implied_forward_rates <- exchange_rate_data$spot_rate * 
 
 plot(exchange_rate_data[,c("swap_implied_forward_rates", "forward_rates", 
                            "spot_rates")], plot.type = "single", 
-     col=c("red", "blue", "green"))
+     col = c("red", "blue", "green"))
 
-plot(window((exchange_rate_data$forward_rates - exchange_rate_data$swap_implied_forward_rates)*10000, end="2016-12-31"),
-     ylab="Basis Points")
+plot((exchange_rate_data$forward_rates - exchange_rate_data$swap_implied_forward_rates)*10000,
+     ylab = "CIP deviation (Basis Points)",
+     main = "Deviations from covered interest rate parity conditions")
