@@ -33,6 +33,30 @@ eur_libor <- read.zoo(as.data.frame(remove_last_row(read_excel("data/EUR LIBOR.x
                         col_types = c("date", "numeric"),
                         skip = 4))))
 
+bofa_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/BOFA CDS.xlsx", 
+                                                              col_types = c("date", "numeric"), 
+                                                              skip = 5))))
+
+cinc_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/CINC CDS.xlsx", 
+                                                              col_types = c("date", "numeric"), 
+                                                              skip = 5))))
+
+jpm_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/JMPCC CDS.xlsx", 
+                                                              col_types = c("date", "numeric"), 
+                                                              skip = 5))))
+rabobank_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/Rabobank CDS.xlsx", 
+                                                                   col_types = c("date", "numeric"), 
+                                                                   skip = 5))))
+
+deutsche_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/Deutsche Bank CDS.xlsx", 
+                                                  col_types = c("date", "numeric"), 
+                                                  skip = 5))))
+
+ted_spread <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/TEDRATE.xls", 
+                                                             col_types = c("date", "numeric"), 
+                                                             skip = 10))))
+
+
 eur_libor <- eur_libor/100
 
 usd_libor <- usd_libor/100
@@ -68,9 +92,6 @@ legend("topright",
        legend = c("FX swap implied rate", "USD Libor 3M"), 
        col = c("red", "blue"),
        lty = c(1, 1))
-bofa_cds <- read_excel("~/sem_macro/data/BOFA CDS.xlsx", 
-                       col_types = c("date", "numeric"), 
-                       skip = 5)
 
 # plot(window(swap_implied_rates*100, end="2008-01-01"))
 # plot(window(forward_rates/spot_rates, end="2008-01-01"))
