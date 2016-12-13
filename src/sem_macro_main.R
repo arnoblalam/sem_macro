@@ -14,91 +14,66 @@ library(reshape2)
 library(zoo)
 library(forecast)
 library(urca)
+library(xlsx)
 
 source("src/helper.R")
 
-fwd_points <- read.zoo(as.data.frame(remove_last_row(read_excel("data/Forward rates.xlsx", 
-                        col_types = c("date", "numeric"), 
-                        skip = 5))))
+# Get the data
 
-spot_rates <- read.zoo(as.data.frame(remove_last_row(read_excel("data/Spot Rates.xlsx", 
-                        col_types = c("date", "numeric"), 
-                        skip = 5))))
+# Exchange rates (forward and spot)
+fwd_points <- read_data("data/Forward rates.xlsx")
 
-usd_libor <- read.zoo(as.data.frame(remove_last_row(read_excel("data/LIBOR.xlsx",
-                        col_types = c("date", "numeric"),
-                        skip = 4))))
+spot_rates <- read_data("data/Spot Rates.xlsx")
 
-eur_libor <- read.zoo(as.data.frame(remove_last_row(read_excel("data/EUR LIBOR.xlsx",
-                        col_types = c("date", "numeric"),
-                        skip = 4))))
+# Libor and Overnight swaps (USD and Euro)
+usd_libor <- read_data("data/LIBOR.xlsx", skip = 4)
 
-bofa_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/BOFA CDS.xlsx", 
-                                                              col_types = c("date", "numeric"), 
-                                                              skip = 5))))
+eur_libor <- read_data("data/EUR LIBOR.xlsx", skip = 4)
 
-cinc_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/CINC CDS.xlsx", 
-                                                              col_types = c("date", "numeric"), 
-                                                              skip = 5))))
+eur_ois <- read_data("data/Euro OIS.xlsx")
 
-jpm_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/JMPCC CDS.xlsx", 
-                                                              col_types = c("date", "numeric"), 
-                                                              skip = 5))))
-rabobank_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/Rabobank CDS.xlsx", 
-                                                                   col_types = c("date", "numeric"), 
-                                                                   skip = 5))))
+usd_ois <- read_data("data/USD OIS.xlsx")
 
-deutsche_cds <- read.zoo(as.data.frame(remove_last_row(read_excel("~/sem_macro/data/Deutsche Bank CDS.xlsx", 
-                                                  col_types = c("date", "numeric"), 
-                                                  skip = 5))))
-
+# Ted Spread (requires a different funcion)
 ted_spread <- read.zoo(read.xlsx2("data/TEDRATE.xls", 
-          sheetIndex = 1, 
-          startRow = 11, 
-          colClasses = c("Date", "numeric")))
+                                  sheetIndex = 1, 
+                                  startRow = 11, 
+                                  colClasses = c("Date", "numeric")))
 
+# CDS rates
+bofa_cds <- read_data("data/BOFA CDS.xlsx")
+
+cinc_cds <- read_data("data/CINC CDS.xlsx")
+
+jpm_cds <- read_data("data/JMPCC CDS.xlsx")
+
+rabobank_cds <- read_data("data/Rabobank CDS.xlsx")
+
+deutsche_cds <- read_data("data/Deutsche Bank CDS.xlsx")
+
+# Data cleaning
+
+# Remove zero values from TED rate
 ted_spread <- ted_spread[ted_spread != 0]
 
-ted_spread <- ted_spread/100
+# Divide rates by 100
 
+ted_spread <- ted_spread/100
 
 eur_libor <- eur_libor/100
 
 usd_libor <- usd_libor/100
 
+eur_ois <- eur_ois/100
+
+# Divide forward points by 10000
 forward_rates <- spot_rates + fwd_points/10000
 
 swap_implied_rates <- ((forward_rates/spot_rates) * (1 + eur_libor)^0.25)^4 - 1
 
-plot(merge(swap_implied_rates*100, usd_libor*100), 
-     plot.type = "single",
-     col = c("red", "blue"),
-     main = "3 month FX swap implied rates and
-     3 month USD Libor rates",
-     sub = "Bloomberg News, author's own calculations",
-     ylab = "Percentage")
-grid()
-legend("topright", 
-       legend = c("FX swap implied rate", "USD Libor 3M"), 
-       col = c("red", "blue"),
-       lty = c(1, 1))
-
-plot(window(merge(swap_implied_rates*100, usd_libor*100), 
-            start = "2006-09-01", 
-            end = "2008-09-01"), 
-     plot.type = "single",
-     col = c("red", "blue"),
-     main = "3 month FX swap implied rates and
-     3 month USD Libor rates (Sep '06 - Sep '08)",
-     sub = "Bloomberg News, author's own calculations",
-     ylab = "Percentage")
-grid()
-legend("topright", 
-       legend = c("FX swap implied rate", "USD Libor 3M"), 
-       col = c("red", "blue"),
-       lty = c(1, 1))
-
+# CDS averages
 eur_cds <- (rabobank_cds + deutsche_cds)/2
+
 us_cds <- (jpm_cds + cinc_cds + bofa_cds)/3
 
 cds_libor <- us_cds - eur_cds
