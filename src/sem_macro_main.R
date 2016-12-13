@@ -30,6 +30,11 @@ usd_libor <- read_data("data/LIBOR.xlsx", skip = 4)
 
 eur_libor <- read_data("data/EUR LIBOR.xlsx", skip = 4)
 
+euribor <- read_data("data/Euribor 3 month.xlsx", skip = 4, 
+                     col_types = c("date", "numeric", "numeric"))
+
+eurodollar <- read_data("data/Eurodollar.xlsx", skip = 4, col_types = c("date", "numeric", "numeric"))
+
 eur_ois <- read_data("data/Euro OIS.xlsx")
 
 usd_ois <- read_data("data/USD OIS.xlsx")
@@ -65,6 +70,14 @@ eur_libor <- eur_libor/100
 usd_libor <- usd_libor/100
 
 eur_ois <- eur_ois/100
+
+# usd_ois <- usd_ois/100
+
+# For Euribor we have ask and last, let's just take the last
+euribor <- euribor[,1]/100
+
+# Same thing with the Eurodollar
+eurodollar <- eurodollar[,1]/100
 
 # Divide forward points by 10000
 forward_rates <- spot_rates + fwd_points/10000
