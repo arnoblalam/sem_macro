@@ -124,8 +124,6 @@ eur_ois <- eur_ois / 100
 
 usd_ois <- usd_ois / 100
 
-# usd_ois <- usd_ois/100
-
 # For Euribor we have ask and last, let's just take the last
 euribor <- euribor[, 1] / 100
 
