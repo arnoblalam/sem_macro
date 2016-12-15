@@ -152,10 +152,12 @@ prudential_cds <- prudential_cds/10000
 simon_cds <- simon_cds/10000
 weyhauser_cds <- weyhauser_cds/10000
 
+fwd_points <- fwd_points / 10000
+
 # Calculations
 
 # Forward rate (divide basis points by 10000)
-forward_rates <- spot_rates + fwd_points / 10000
+forward_rates <- spot_rates + fwd_points
 
 # Swap Implied Rates
 swap_implied_rates <-
