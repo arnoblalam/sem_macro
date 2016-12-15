@@ -132,6 +132,26 @@ euribor <- euribor[, 1] / 100
 # Same thing with the Eurodollar
 eurodollar <- eurodollar[, 1] / 100
 
+# Divide things quoted in basis points by 10000
+agmc_cds <- agmc_cds/10000
+aig_cds <- aig_cds/10000
+allstate_cds <- allstate_cds/10000
+amex_cds <- amex_cds/10000
+berkshire_cds <- berkshire_cds/10000
+cap_one_cds <- cap_one_cds/10000
+chubb_cds <- chubb_cds/10000
+erp_cds <- erp_cds/10000
+hartford_cds <- hartford_cds/10000
+international_lease_cds <- international_lease_cds/10000
+lincoln_cds <- lincoln_cds/10000
+lowes_cds <- lowes_cds/10000
+marsh_cds <- marsh_cds/10000
+metlife_cds <- metlife_cds/10000
+nr_cds <- nr_cds/10000
+prudential_cds <- prudential_cds/10000
+simon_cds <- simon_cds/10000
+weyhauser_cds <- weyhauser_cds/10000
+
 # Calculations
 
 # Forward rate (divide basis points by 10000)
