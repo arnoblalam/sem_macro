@@ -132,9 +132,12 @@ euribor <- euribor[, 1] / 100
 # Same thing with the Eurodollar
 eurodollar <- eurodollar[, 1] / 100
 
-# Divide basis points by 10000
+# Calculations
+
+# Forward rate (divide basis points by 10000)
 forward_rates <- spot_rates + fwd_points / 10000
 
+# Swap Implied Rates
 swap_implied_rates <-
   ((forward_rates / spot_rates) * (1 + eur_libor) ^ 0.25) ^ 4 - 1
 
