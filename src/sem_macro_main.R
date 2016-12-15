@@ -6,7 +6,7 @@
 # during financial crisis in the FX market
 
 # Load some requireed libraries
-library("foreign", lib.loc="~/sem_macro/packrat/lib-R")
+library("foreign", lib.loc = "~/sem_macro/packrat/lib-R")
 library(readxl)
 library(dplyr)
 library(ggplot2)
@@ -30,20 +30,29 @@ usd_libor <- read_data("data/LIBOR.xlsx", skip = 4)
 
 eur_libor <- read_data("data/EUR LIBOR.xlsx", skip = 4)
 
-euribor <- read_data("data/Euribor 3 month.xlsx", skip = 4, 
-                     col_types = c("date", "numeric", "numeric"))
+euribor <- read_data(
+  "data/Euribor 3 month.xlsx",
+  skip = 4,
+  col_types = c("date", "numeric", "numeric")
+)
 
-eurodollar <- read_data("data/Eurodollar.xlsx", skip = 4, col_types = c("date", "numeric", "numeric"))
+eurodollar <- read_data(
+  "data/Eurodollar.xlsx",
+  skip = 4,
+  col_types = c("date", "numeric", "numeric")
+)
 
 eur_ois <- read_data("data/Euro OIS.xlsx")
 
 usd_ois <- read_data("data/USD OIS.xlsx")
 
 # Ted Spread (requires a different funcion)
-ted_spread <- read.zoo(read.xlsx2("data/TEDRATE.xls", 
-                                  sheetIndex = 1, 
-                                  startRow = 11, 
-                                  colClasses = c("Date", "numeric")))
+ted_spread <- read.zoo(read.xlsx2(
+  "data/TEDRATE.xls",
+  sheetIndex = 1,
+  startRow = 11,
+  colClasses = c("Date", "numeric")
+))
 
 # CDS rates
 bofa_cds <- read_data("data/BOFA CDS.xlsx")
@@ -63,30 +72,33 @@ ted_spread <- ted_spread[ted_spread != 0]
 
 # Divide rates by 100
 
-ted_spread <- ted_spread/100
+ted_spread <- ted_spread / 100
 
-eur_libor <- eur_libor/100
+eur_libor <- eur_libor / 100
 
-usd_libor <- usd_libor/100
+usd_libor <- usd_libor / 100
 
-eur_ois <- eur_ois/100
+eur_ois <- eur_ois / 100
+
+usd_ois <- usd_ois/100
 
 # usd_ois <- usd_ois/100
 
 # For Euribor we have ask and last, let's just take the last
-euribor <- euribor[,1]/100
+euribor <- euribor[, 1] / 100
 
 # Same thing with the Eurodollar
-eurodollar <- eurodollar[,1]/100
+eurodollar <- eurodollar[, 1] / 100
 
 # Divide forward points by 10000
-forward_rates <- spot_rates + fwd_points/10000
+forward_rates <- spot_rates + fwd_points / 10000
 
-swap_implied_rates <- ((forward_rates/spot_rates) * (1 + eur_libor)^0.25)^4 - 1
+swap_implied_rates <-
+  ((forward_rates / spot_rates) * (1 + eur_libor) ^ 0.25) ^ 4 - 1
 
 # CDS averages
-eur_cds <- (rabobank_cds + deutsche_cds)/2
+eur_cds <- (rabobank_cds + deutsche_cds) / 2
 
-us_cds <- (jpm_cds + cinc_cds + bofa_cds)/3
+us_cds <- (jpm_cds + cinc_cds + bofa_cds) / 3
 
 cds_libor <- us_cds - eur_cds
