@@ -86,7 +86,7 @@ erp_cds <- read_data("data/ERP Financial CDS.xlsx")
 
 hartford_cds <- read_data("data/Hartford CDS.xlsx")
 
-host_cds <- read_data("data/Host Hotels CDS.xlsx")
+# host_cds <- read_data("data/Host Hotels CDS.xlsx")
 
 international_lease_cds <-
   read_data("data/International Lease Financing Corp CDS.xlsx")
@@ -138,9 +138,16 @@ forward_rates <- spot_rates + fwd_points / 10000
 swap_implied_rates <-
   ((forward_rates / spot_rates) * (1 + eur_libor) ^ 0.25) ^ 4 - 1
 
-# CDS averages
+# CDS averages (sample of Libor panel banks)
 eur_cds <- (rabobank_cds + deutsche_cds) / 2
 
 us_cds <- (jpm_cds + cinc_cds + bofa_cds) / 3
 
+# Difference between European and American Libor panel banks
 cds_libor <- us_cds - eur_cds
+
+# CDS averages (North American Invenstment Grade financials)
+cbind(agmc_cds, aig_cds, allstate_cds, amex_cds, berkshire_cds, cap_one_cds,
+      chubb_cds, erp_cds, hartford_cds, host_cds, international_lease_cds,
+      lincoln_cds, lowes_cds, marsh_cds, metlife_cds, nr_cds, prudential_cds,
+      simon_cds)
