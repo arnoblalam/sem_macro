@@ -132,7 +132,7 @@ euribor <- euribor[, 1] / 100
 # Same thing with the Eurodollar
 eurodollar <- eurodollar[, 1] / 100
 
-# Divide forward points by 10000
+# Divide basis points by 10000
 forward_rates <- spot_rates + fwd_points / 10000
 
 swap_implied_rates <-
@@ -147,7 +147,9 @@ us_cds <- (jpm_cds + cinc_cds + bofa_cds) / 3
 cds_libor <- us_cds - eur_cds
 
 # CDS averages (North American Invenstment Grade financials)
-cbind(agmc_cds, aig_cds, allstate_cds, amex_cds, berkshire_cds, cap_one_cds,
-      chubb_cds, erp_cds, hartford_cds, host_cds, international_lease_cds,
+na_ig_cds <- cbind(agmc_cds, aig_cds, allstate_cds, amex_cds, berkshire_cds, cap_one_cds,
+      chubb_cds, erp_cds, hartford_cds, international_lease_cds,
       lincoln_cds, lowes_cds, marsh_cds, metlife_cds, nr_cds, prudential_cds,
       simon_cds)
+
+na_ig_cdx <- zoo(rowMeans(na_ig_cds, na.rm = TRUE), time(na_ig_cds))
