@@ -107,6 +107,9 @@ simon_cds <- read_data("data/Simon CDS.xlsx")
 
 weyhauser_cds <- read_data("data/Weyerhaeuser CDS.xlsx")
 
+# European Financial CDS index
+european_fin_cds <- read_data("data/Euro 5Y.xlsx")
+
 # Data cleaning
 
 # Remove zero values from TED rate
@@ -149,6 +152,13 @@ nr_cds <- nr_cds/10000
 prudential_cds <- prudential_cds/10000
 simon_cds <- simon_cds/10000
 weyhauser_cds <- weyhauser_cds/10000
+
+bofa_cds <- bofa_cds/10000
+cinc_cds <- cinc_cds/10000
+jpm_cds <- jpm_cds/10000
+
+deutsche_cds <- deutsche_cds/10000
+rabobank_cds <- rabobank_cds/10000
 
 fwd_points <- fwd_points / 10000
 
