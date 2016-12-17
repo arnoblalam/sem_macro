@@ -160,6 +160,8 @@ jpm_cds <- jpm_cds/10000
 deutsche_cds <- deutsche_cds/10000
 rabobank_cds <- rabobank_cds/10000
 
+european_fin_cds <- european_fin_cds/10000
+
 fwd_points <- fwd_points / 10000
 
 # Calculations
