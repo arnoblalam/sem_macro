@@ -15,6 +15,7 @@ library(zoo)
 library(forecast)
 library(urca)
 library(xlsx)
+library(xtable)
 
 source("src/helper.R")
 
