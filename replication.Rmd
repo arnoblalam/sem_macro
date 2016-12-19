@@ -1,0 +1,60 @@
+---
+title: "Replication"
+author: "Arnob Alam"
+date: "December 19, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("src/sem_macro_main.R")
+```
+
+```{r, results='asis'}
+
+
+precrisis_start <- "2007-08-09"
+precrsisis_end <- "2008-09-12"
+
+main_vars <- cbind(
+"FX Swap deviation" = 100 * (swap_implied_rates - usd_libor),
+"CDS (European)" = 100 * european_fin_cds,
+"CDS (US)" = 100 * na_ig_cdx,
+"Broad - OIS spread" = 100 * (eurodollar - usd_ois),
+"Libor OIS spread" = 100 * (usd_libor - usd_ois)
+)
+
+precrisis <-
+xtable(summary(window(
+main_vars, start = precrisis_start, end = precrsisis_end
+))[, -1], digits = 3)
+print(precrisis)
+
+reported_precrsis <-data.frame(
+  mean = c(0.171, 0.703, 2.263, 0.806, 0.690),
+  max = c(0.446, 1.610, 4.695, 1.201, 1.635),
+  min = c(-0.272, 0.205, 0.846, 0.250, 0.243),
+  stdev =c(0.115, 0.288, 0.784, 0.207, 0.142),
+  row.names = c(
+    "FX Swap Deviation", "CDS (European)", "CDS (US)", "Broad - OIS Spread","Libor - OIS Spread"))
+xtable(t(reported_precrsis). digits = 3)
+# cip_deviation_precrsis_mean <-
+#   100 * mean(window(
+#   ,
+#   start = "2007-08-09",
+#   end = "2008-09-12"
+#   ))
+#
+# cds_european_pre_crisis_mean <-
+#   100 * mean(window(european_fin_cds, start = "2007-08-09", end = "2008-09-12"))
+#
+# cds_na_pre_crsis_mean <-
+#   100 * mean(window(na_ig_cdx, start = "2007-08-09", end = "2008-09-12"))
+#
+# libor_ois_spread <- mean(100*window(usd_libor - usd_ois, start=, end = "2008-09-12"))
+#
+# broad_ois_spread <- mean(100*window(eurodollar - usd_ois, start="2007-08-09", end = "2008-09-12"))
+
+# xtable(data.frame("FX swap deviation" = cip_deviation_precrsis_mean, "CDS(European)" = libor_ois_spread))
+```
+
