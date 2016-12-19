@@ -67,7 +67,7 @@ rabobank_cds <- read_data("data/Rabobank CDS.xlsx")
 
 deutsche_cds <- read_data("data/Deutsche Bank CDS.xlsx")
 
-#Investment grade American banks
+#Investment grade American financials
 agmc_cds <- read_data("data/AGMC CDS.xlsx")
 
 aig_cds <- read_data("data/AIG CDS.xlsx")
