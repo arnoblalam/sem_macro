@@ -109,7 +109,7 @@ weyhauser_cds <- read_data("data/Weyerhaeuser CDS.xlsx")
 
 # European Financial CDS index
 # european_fin_cds <- read_data("data/Euro 5Y.xlsx")
-european_five_year_cds <- read.zoo(as.data.frame(read_excel(
+european_fin_cds <- read.zoo(as.data.frame(read_excel(
   "~/sem_macro/data/european_five_year_cds.xlsx"
 )))
 
