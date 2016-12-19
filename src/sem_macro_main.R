@@ -108,7 +108,10 @@ simon_cds <- read_data("data/Simon CDS.xlsx")
 weyhauser_cds <- read_data("data/Weyerhaeuser CDS.xlsx")
 
 # European Financial CDS index
-european_fin_cds <- read_data("data/Euro 5Y.xlsx")
+# european_fin_cds <- read_data("data/Euro 5Y.xlsx")
+european_five_year_cds <- read.zoo(as.data.frame(read_excel(
+  "~/sem_macro/data/european_five_year_cds.xlsx"
+)))
 
 # Data cleaning
 
@@ -134,33 +137,33 @@ euribor <- euribor[, 1] / 100
 eurodollar <- eurodollar[, 1] / 100
 
 # Divide things quoted in basis points by 10000
-agmc_cds <- agmc_cds/10000
-aig_cds <- aig_cds/10000
-allstate_cds <- allstate_cds/10000
-amex_cds <- amex_cds/10000
-berkshire_cds <- berkshire_cds/10000
-cap_one_cds <- cap_one_cds/10000
-chubb_cds <- chubb_cds/10000
-erp_cds <- erp_cds/10000
-hartford_cds <- hartford_cds/10000
-international_lease_cds <- international_lease_cds/10000
-lincoln_cds <- lincoln_cds/10000
-lowes_cds <- lowes_cds/10000
-marsh_cds <- marsh_cds/10000
-metlife_cds <- metlife_cds/10000
-nr_cds <- nr_cds/10000
-prudential_cds <- prudential_cds/10000
-simon_cds <- simon_cds/10000
-weyhauser_cds <- weyhauser_cds/10000
+agmc_cds <- agmc_cds / 10000
+aig_cds <- aig_cds / 10000
+allstate_cds <- allstate_cds / 10000
+amex_cds <- amex_cds / 10000
+berkshire_cds <- berkshire_cds / 10000
+cap_one_cds <- cap_one_cds / 10000
+chubb_cds <- chubb_cds / 10000
+erp_cds <- erp_cds / 10000
+hartford_cds <- hartford_cds / 10000
+international_lease_cds <- international_lease_cds / 10000
+lincoln_cds <- lincoln_cds / 10000
+lowes_cds <- lowes_cds / 10000
+marsh_cds <- marsh_cds / 10000
+metlife_cds <- metlife_cds / 10000
+nr_cds <- nr_cds / 10000
+prudential_cds <- prudential_cds / 10000
+simon_cds <- simon_cds / 10000
+weyhauser_cds <- weyhauser_cds / 10000
 
-bofa_cds <- bofa_cds/10000
-cinc_cds <- cinc_cds/10000
-jpm_cds <- jpm_cds/10000
+bofa_cds <- bofa_cds / 10000
+cinc_cds <- cinc_cds / 10000
+jpm_cds <- jpm_cds / 10000
 
-deutsche_cds <- deutsche_cds/10000
-rabobank_cds <- rabobank_cds/10000
+deutsche_cds <- deutsche_cds / 10000
+rabobank_cds <- rabobank_cds / 10000
 
-european_fin_cds <- european_fin_cds/10000
+european_fin_cds <- european_fin_cds / 10000
 
 fwd_points <- fwd_points / 10000
 
@@ -182,9 +185,25 @@ us_cds <- (jpm_cds + cinc_cds + bofa_cds) / 3
 cds_libor <- us_cds - eur_cds
 
 # CDS averages (North American Invenstment Grade financials)
-na_ig_cds <- cbind(agmc_cds, aig_cds, allstate_cds, amex_cds, berkshire_cds, cap_one_cds,
-      chubb_cds, erp_cds, hartford_cds, international_lease_cds,
-      lincoln_cds, lowes_cds, marsh_cds, metlife_cds, nr_cds, prudential_cds,
-      simon_cds)
+na_ig_cds <-
+  cbind(
+    agmc_cds,
+    aig_cds,
+    allstate_cds,
+    amex_cds,
+    berkshire_cds,
+    cap_one_cds,
+    chubb_cds,
+    erp_cds,
+    hartford_cds,
+    international_lease_cds,
+    lincoln_cds,
+    lowes_cds,
+    marsh_cds,
+    metlife_cds,
+    nr_cds,
+    prudential_cds,
+    simon_cds
+  )
 
 na_ig_cdx <- zoo(rowMeans(na_ig_cds, na.rm = TRUE), time(na_ig_cds))
