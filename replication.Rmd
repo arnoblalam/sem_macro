@@ -2,7 +2,10 @@
 title: "Replication"
 author: "Arnob Alam"
 date: "December 19, 2016"
-output: pdf_document
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -43,21 +46,18 @@ precrisis_end <- "2008-09-12"
 crisis_start <- "2008-09-15"
 crisis_end <- "2009-01-31"
 
-precrisis <- xtable(summary(window(
+summary(window(
   main_vars, 
   start = precrisis_start, 
-  end = precrisis_end))[, -1], 
-  digits = 3)
-print(precrisis)
+  end = precrisis_end))
+#print(precrisis)
 
-xtable(t(reported_precrisis), digits = 3)
+# xtable(t(reported_precrisis), digits = 3)
 
-crisis <- xtable(summary(window(
+summary(window(
   main_vars, 
   start = crisis_start, 
-  end = crisis_end))[, -1], 
-  digits = 3)
-print(crisis)
+  end = crisis_end))
 
 xtable(crisis, digits = 3)
 xtable(reported_crisis, digits = 3)
