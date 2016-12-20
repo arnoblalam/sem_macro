@@ -26,6 +26,12 @@ Version: 0.8-1
 Hash: 8918caca108c4a3d5e16ce241f7d0bf5
 Requires: DistributionUtils, RUnit
 
+Package: PerformanceAnalytics
+Source: CRAN
+Version: 1.4.3541
+Hash: b1d6f7850d31690ae31e8848dbce5a8b
+Requires: xts, zoo
+
 Package: R6
 Source: CRAN
 Version: 2.2.0
@@ -57,6 +63,12 @@ Source: CRAN
 Version: 1.16
 Hash: 0a1d2ee00c132ac390e478e17003f4c0
 Requires: truncnorm
+
+Package: SBRect
+Source: CRAN
+Version: 0.26
+Hash: 29fa282751a2c631509c4241b6d159e4
+Requires: rJava
 
 Package: SkewHyperbolic
 Source: CRAN
