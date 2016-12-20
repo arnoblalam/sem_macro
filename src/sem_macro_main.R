@@ -191,7 +191,7 @@ cds_libor <- us_cds - eur_cds
 
 # CDS averages (North American Invenstment Grade financials)
 na_ig_cds <-
-  cbind(
+  merge(
     agmc_cds,
     aig_cds,
     allstate_cds,
