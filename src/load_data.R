@@ -8,17 +8,9 @@
 # Load some requireed libraries
 library(foreign)
 library(readxl)
-# library(dplyr)
-# library(ggplot2)
-# library(reshape2)
 library(zoo)
-# library(forecast)
-# library(urca)
 library(xlsx)
-# library(xtable)
 library(strucchange)
-#library(SBRect)
-# library(PerformanceAnalytics)
 library(rugarch)
 
 source("src/helper.R")
