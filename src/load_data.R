@@ -2,7 +2,7 @@
 # description:  source file for analysis of counterparty risk in FX swaps
 # author:       Arnob L. Alam <aa2288a@american.edu>
 #
-# This is the main file for the analysis of counterparty risk premia
+# This is the file for loading data  for the analysis of counterparty risk premia
 # during financial crisis in the FX market
 
 # Load some requireed libraries
