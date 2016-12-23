@@ -25,6 +25,14 @@ source("src/helper.R")
 
 # Get the data
 
+# European Dollar auctions
+ecb_operations <- read.csv("data/ECB opartions.csv", stringsAsFactors = FALSE)
+ecb_operations <- ecb_operations[ecb_operations$t_operation_currency == "USD",]
+ecb_operations <- ecb_operations[order(ecb_operations$t_duration, 
+                                       decreasing = TRUE),]
+ecb_operations <- ecb_operations[!duplicated(as.POSIXct(ecb_operations$t_allot_dt)),]
+ecb_operations <- zoo(rep(1, length.out=length(ecb_operations)), as.POSIXct(ecb_operations$t_allot_dt))
+
 # Exchange rates (forward and spot)
 fwd_points <- read_data("data/Forward rates.xlsx")
 
@@ -218,4 +226,4 @@ main_data <- merge(cipv = swap_implied_rates - usd_libor,
                    eur_ig_cdx = european_fin_cds,
                    broad_euro = euribor - eur_ois,
                    broad_us = eurodollar - usd_ois)
-
+# main_data <- merge(main_data, ecb_operations, fill = 0)
