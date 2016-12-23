@@ -10,8 +10,6 @@ library(foreign)
 library(readxl)
 library(zoo)
 library(xlsx)
-library(strucchange)
-library(rugarch)
 
 source("src/helper.R")
 
