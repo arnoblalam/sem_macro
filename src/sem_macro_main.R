@@ -213,3 +213,9 @@ na_ig_cds <-
 
 na_ig_cdx <- zoo(rowMeans(na_ig_cds, na.rm = TRUE), time(na_ig_cds))
 
+main_data <- merge(cipv = swap_implied_rates - usd_libor,
+                   na_ig_cdx,
+                   eur_ig_cdx = european_fin_cds,
+                   broad_euro = euribor - eur_ois,
+                   broad_us = eurodollar - usd_ois)
+
