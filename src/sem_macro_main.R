@@ -6,19 +6,19 @@
 # during financial crisis in the FX market
 
 # Load some requireed libraries
-library("foreign", lib.loc = "~/sem_macro/packrat/lib-R")
+library(foreign)
 library(readxl)
-library(dplyr)
-library(ggplot2)
-library(reshape2)
+# library(dplyr)
+# library(ggplot2)
+# library(reshape2)
 library(zoo)
-library(forecast)
-library(urca)
+# library(forecast)
+# library(urca)
 library(xlsx)
-library(xtable)
+# library(xtable)
 library(strucchange)
-library(SBRect)
-library(PerformanceAnalytics)
+#library(SBRect)
+# library(PerformanceAnalytics)
 library(rugarch)
 
 source("src/helper.R")
@@ -115,7 +115,7 @@ weyhauser_cds <- read_data("data/Weyerhaeuser CDS.xlsx")
 # European Financial CDS index
 # european_fin_cds <- read_data("data/Euro 5Y.xlsx")
 european_fin_cds <- read.zoo(as.data.frame(read_excel(
-  "~/sem_macro/data/european_five_year_cds.xlsx"
+  "data/european_five_year_cds.xlsx"
 )))
 
 # Data cleaning
@@ -212,3 +212,4 @@ na_ig_cds <-
   )
 
 na_ig_cdx <- zoo(rowMeans(na_ig_cds, na.rm = TRUE), time(na_ig_cds))
+
