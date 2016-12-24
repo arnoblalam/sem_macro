@@ -21,7 +21,7 @@ ecb_operations <- ecb_operations[ecb_operations$t_operation_currency == "USD",]
 ecb_operations <- ecb_operations[order(ecb_operations$t_duration, 
                                        decreasing = TRUE),]
 ecb_operations <- ecb_operations[!duplicated(as.POSIXct(ecb_operations$t_allot_dt)),]
-ecb_operations <- zoo(rep(1, length.out=length(ecb_operations)), as.POSIXct(ecb_operations$t_allot_dt))
+ecb_operations <- zoo(rep(1, length.out=length(ecb_operations)), as.POSIXct(ecb_operations$t_allot_dt, tz = "GMT"))
 
 # Exchange rates (forward and spot)
 fwd_points <- read_data("data/Forward rates.xlsx")
@@ -215,5 +215,7 @@ main_data <- merge(cipv = swap_implied_rates - usd_libor,
                    na_ig_cdx,
                    eur_ig_cdx = european_fin_cds,
                    broad_euro = euribor - eur_ois,
-                   broad_us = eurodollar - usd_ois)
-# main_data <- merge(main_data, ecb_operations, fill = 0)
+                   broad_us = eurodollar - usd_ois,
+                   ecb_operations)
+main_data$ecb_operations <- na.fill(main_data$ecb_operations, list(0, 0, 0))
+# main_data$ecb_operations <- as.numeric(index(main_data) %in% index(ecb_operations))
