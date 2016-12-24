@@ -20,8 +20,8 @@ ecb_operations <- read.csv("data/ECB opartions.csv", stringsAsFactors = FALSE)
 ecb_operations <- ecb_operations[ecb_operations$t_operation_currency == "USD",]
 ecb_operations <- ecb_operations[order(ecb_operations$t_duration, 
                                        decreasing = TRUE),]
-ecb_operations <- ecb_operations[!duplicated(as.POSIXct(ecb_operations$t_allot_dt)),]
-ecb_operations <- zoo(rep(1, length.out=length(ecb_operations)), as.POSIXct(ecb_operations$t_allot_dt, tz = "GMT"))
+ecb_operations <- ecb_operations[!duplicated(as.Date(ecb_operations$t_allot_dt)),]
+ecb_operations <- zoo(rep(1, length.out=length(ecb_operations)), as.Date(ecb_operations$t_allot_dt, tz = "GMT"))
 
 # Exchange rates (forward and spot)
 fwd_points <- read_data("data/Forward rates.xlsx")
@@ -113,8 +113,7 @@ weyhauser_cds <- read_data("data/Weyerhaeuser CDS.xlsx")
 # European Financial CDS index
 # european_fin_cds <- read_data("data/Euro 5Y.xlsx")
 european_fin_cds <- read.zoo(as.data.frame(read_excel(
-  "data/european_five_year_cds.xlsx"
-)))
+  "data/european_five_year_cds.xlsx")), FUN = as.Date)
 
 # Data cleaning
 

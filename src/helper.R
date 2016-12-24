@@ -10,5 +10,6 @@ read_data <- function(path, col_types = c("date", "numeric"), skip = 5) {
   read.zoo(as.data.frame(remove_last_row(read_excel(path, 
                                                     col_types = col_types,
                                                     skip = skip))),
-           tz = "GMT")
+           tz = "GMT",
+           FUN=as.Date)
 }
