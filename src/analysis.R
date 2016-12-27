@@ -19,21 +19,38 @@ main_data <- merge(cipv = swap_implied_rates - usd_libor,
 main_data$ecb_operations <- na.fill(main_data$ecb_operations, list(0, 0, 0))
 
 main_data_c <- main_data[complete.cases(main_data),]
-pre_2010 <- window(main_data_c, end = "2009-12-31")
+
+# Spllit the data into several groups
+pre_2007 <- window(main_data_c, end = "2007-08-08")
+turmoil <- window(main_data_c, start = "2007-08-09", end = "2008-09-12")
+crisis <- window(main_data_c, start = "2008-09-13", end = "2009-02-28")
+post_crisis <- window(main_data_c, start = "2009-03-01")
 
 
 model_1 <- lm(cipv ~ ., data = main_data_c)
 e <- resid(model_1)
 
-spec <- ugarchspec(
-  variance.model = list(
-    model = 'eGARCH',
-    garchOrder = c(1, 1),
-    external.regressors = as.matrix(main_data[,6])),
-  mean.model = list(
-    armaOrder = c(0, 0),
-    include.mean = TRUE,
-    external.regressors = as.matrix(main_data_c[,-1])
+fit_model <- function(x) {
+  spec <- ugarchspec(
+    variance.model = list(
+      model = 'eGARCH',
+      garchOrder = c(1, 1),
+      external.regressors = as.matrix(x[,6])),
+    mean.model = list(
+      armaOrder = c(0, 0),
+      include.mean = TRUE,
+      external.regressors = as.matrix(x[,-1])
     ))
+  ugarchfit(spec, x[,1], solver = "hybrid")
+}
 
-fit <- ugarchfit(spec, main_data_c[,1])
+fits <- lapply(list(main_data_c, turmoil, crisis, post_crisis), fit_model)
+
+pre_2007 <- window(main_data_c, end = "2007-08-08")
+turmoil <- window(main_data_c, start = "2007-08-09", end = "2008-09-12")
+crisis <- window(main_data_c, start = "2008-09-13", end = "2009-02-28")
+post_crisis <- window(main_data_c, start = "2009-03-01")
+
+ybar <- rbind(fitted(fits[[2]]), fitted(fits[[3]]), fitted(fits[[4]]))
+plot(merge(as.zoo(main_data_c$cipv), as.zoo(ybar)), plot.type="single", col=c("red", "blue"))
+grid()
